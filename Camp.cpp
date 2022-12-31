@@ -26,7 +26,7 @@ Monster*
 Camp::BornMonster(){
   
   //if (timer == frequncy){}
-  int random=5; // get random number of monster type 
+  int random=0; // get random number of monster type 
   switch(random){
     default:
       return NULL;

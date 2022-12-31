@@ -2,7 +2,7 @@
 
 bool
 Wolf::Move(){
-    if(circle->x<=0 || HealthPoint<=0)return false;
+    if(circle->x<=0 || HealthPoint<=0)return true;
     circle->x-=speed;
-    return true;
+    return false;
 }
