@@ -235,7 +235,8 @@ GameWindow::game_reset()
     monsterSet.clear();
     CampSet.clear();
     shooter1=create_tower(Tower_x,Tower_y,CANON);
-    CampSet.push_back(create_camp(field_width+lava_width+80,field_width/2,HELL));
+    CampSet.push_back(create_camp(max_camp_x,field_width/2,HELL));
+    
     mute = false;
     redraw = false;
      

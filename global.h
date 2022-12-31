@@ -9,11 +9,14 @@
 
 #define window_width 800
 #define window_height 600
-#define field_width 600
+#define field_width 500
 #define field_height 600
 #define lava_width 20
 #define lava_height 600
-
+#define max_camp_y 540
+#define min_camp_y 60
+#define max_camp_x 800-80
+#define min_camp_x 800-240
 #define Num_TowerType 5
 #define Num_MonsterType 4
 #define NumOfGrid (field_width / grid_width) * (field_height / grid_height)

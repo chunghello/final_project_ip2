@@ -28,8 +28,8 @@ public:
    
     Monster* BornMonster(Clock);
 
-    virtual int getWidth() { return 40; }
-    virtual int getHeight() { return 40; }
+    virtual int getWidth() { return 80; }
+    virtual int getHeight() { return 80; }
 
 
 protected:
