@@ -43,10 +43,10 @@ Attack::~Attack()
 void
 Attack::Draw()
 {
-    
+    printf("%f %f\n",pos_x,pos_y);
     al_draw_bitmap(attack_img, pos_x, pos_y, 0);
     
-   
+    
     pos_x += attack_velocity * direction_x;
     pos_y += attack_velocity * direction_y;
    
