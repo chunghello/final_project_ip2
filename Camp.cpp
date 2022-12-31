@@ -17,6 +17,7 @@ void
 Camp::Draw(){
     int draw_x = circle->x;
     int draw_y = circle->y;
+    
     al_draw_bitmap(camp_img, draw_x, draw_y, 0);
 }
 

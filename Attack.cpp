@@ -20,6 +20,7 @@ Attack::Attack(Circle *created_circle, float tan_angle , int harm_point, int vel
     this->direction_y = vector_y / len;
 
     this->attack_velocity = velocity;
+   
     this->harm_point = harm_point;
     this->attack_img = attack_img;
 
@@ -44,10 +45,11 @@ Attack::Draw()
 {
     
     al_draw_bitmap(attack_img, pos_x, pos_y, 0);
+    
    
     pos_x += attack_velocity * direction_x;
     pos_y += attack_velocity * direction_y;
-
+   
     circle->x = (int)pos_x;
     circle->y = (int)pos_y;
    

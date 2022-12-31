@@ -4,7 +4,7 @@ ALLEGRO_FLAGS := $(shell pkg-config --cflags --libs $(ALLEGRO_LIBRARIES)) -lalle
 
 CC := g++
 OUT:= game
-MAIN:= Main.o Monster.o Wolf.o Tower.o Attack.o Circle.o  GameWindow.o global.o 
+MAIN:= Main.o Camp.o Monster.o Wolf.o Tower.o Attack.o Circle.o GameWindow.o global.o 
 
 all: $(MAIN)
 	$(CC) $(MAIN) -std=c++20 -o $(OUT) $(ALLEGRO_FLAGS) 

@@ -26,7 +26,7 @@ extern int TowerWidth[];
 extern int TowerHeight[];
 extern char MonsterClass[][20];
 extern int MonsterRadius[];
-extern int CampClass[][20];
+extern char CampClass[][20];
 extern int CampRadius[];
 
 

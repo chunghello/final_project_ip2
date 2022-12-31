@@ -10,6 +10,7 @@
 #include "Canon.h"
 #include "Attack.h"
 #include "Tower.h"
+#include "Monster.h"
 #include "Camp.h"
 #include "Hell.h"
 

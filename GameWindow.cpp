@@ -88,7 +88,7 @@ GameWindow::game_play()
     
     msg = -1;
     game_reset();
-   
+    
     game_begin();
     
     while(msg != GAME_EXIT)
@@ -159,6 +159,7 @@ GameWindow::GameWindow()
 void
 GameWindow::game_begin()
 {
+    
     draw_running_map();
     
     al_play_sample_instance(startSound);
@@ -362,19 +363,22 @@ GameWindow::draw_running_map()
     
     al_clear_to_color(al_map_rgb(100, 100, 100));
     al_draw_bitmap(background, 0, 0, 0);
-     
+    al_draw_filled_rectangle(field_width, 0,field_width+lava_width, lava_height, ORANGE_DARK);
+    al_draw_filled_rectangle(field_width+lava_width, 0, window_width, window_height, al_map_rgb(100, 100, 100));
     for(i=0; i<monsterSet.size(); i++)
     {
         monsterSet[i]->Draw();
     }
+    
     for(i=0;i<CampSet.size();i++){
         CampSet[i]->Draw();
     }
-     
+    
+    
     shooter1->Draw();
  
-    al_draw_filled_rectangle(field_width, 0,field_width+lava_width, lava_height, ORANGE_DARK);
-    al_draw_filled_rectangle(field_width+lava_width, 0, window_width, window_height, al_map_rgb(100, 100, 100));
+    
+    
 
 
 

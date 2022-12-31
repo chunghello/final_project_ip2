@@ -14,6 +14,7 @@
 #include "global.h"
 
 
+
 class Tower : public Object
 {
 public:

@@ -12,8 +12,8 @@ public:
         circle->r = CampRadius[type];
         HealthPoint=70;
         Frequency=10;
-        MonsterType={0};
-        ALLEGRO_BITMAP* camp_img= al_load_bitmap("media/Tower/Canon.png");
+        MonsterType=std::vector<int>(1,WOLF);
+        camp_img= al_load_bitmap("media/Tower/Canon.png");
     }
 
     int getWidth() override { return TowerWidth[CANON]; }

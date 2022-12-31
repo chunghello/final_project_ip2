@@ -27,7 +27,7 @@ protected:
     ALLEGRO_SAMPLE_INSTANCE *arrow = NULL;
 
 private:
-    int attack_velocity;
+    float attack_velocity;
     int harm_point;
     float pos_x, pos_y;
     float direction_x, direction_y;

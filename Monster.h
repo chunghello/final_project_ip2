@@ -9,7 +9,7 @@
 #include "Object.h"
 #include "Circle.h"
 #include "global.h"
-#include "Tower.h"
+
 
 enum {LEFT=0, RIGHT, UP, DOWN};
 
