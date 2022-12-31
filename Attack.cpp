@@ -3,7 +3,7 @@
 const int Velocity[] = {8, 8, 6, 10, 20};
 const int Harm[] = {5, 7, 15, 3, 5};
 
-Attack::Attack(Circle *created_circle, float tan_angle , int harm_point, int velocity, ALLEGRO_BITMAP* attack_img)
+Attack::Attack(Circle *created_circle, float tan_angle , int harm_point, float velocity, ALLEGRO_BITMAP* attack_img)
 {
 
     float vector_x = 1;
@@ -43,10 +43,9 @@ Attack::~Attack()
 void
 Attack::Draw()
 {
-    printf("%f %f\n",pos_x,pos_y);
+    
     al_draw_bitmap(attack_img, pos_x, pos_y, 0);
-    
-    
+  
     pos_x += attack_velocity * direction_x;
     pos_y += attack_velocity * direction_y;
    

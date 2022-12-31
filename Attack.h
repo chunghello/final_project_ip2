@@ -13,7 +13,7 @@
 class Attack : public Object
 {
 public:
-    Attack(Circle*, float, int, int, ALLEGRO_BITMAP*);
+    Attack(Circle*, float, int, float, ALLEGRO_BITMAP*);
     virtual ~Attack();
 
     void Draw();

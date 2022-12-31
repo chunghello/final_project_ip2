@@ -43,7 +43,7 @@ public:
 protected:
     // setting of attack
     int attack_harm_point;
-    int attack_velocity;
+    float attack_velocity;
     float rotate_speed;
     std::vector<Attack*> attack_set;
 

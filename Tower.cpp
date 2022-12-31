@@ -33,8 +33,10 @@ Tower::Draw()
     al_draw_bitmap(attack_img, draw_x, draw_y, 0);
    
     
-    for(unsigned int i=0; i<this->attack_set.size(); i++)
+    for(unsigned int i=0; i<this->attack_set.size(); i++){
+       
         this->attack_set[i]->Draw();   
+    }
 }
 
 bool
@@ -60,7 +62,8 @@ Tower::UpdateAttack()
 {
     for(unsigned int i=0; i < this->attack_set.size(); i++)
     {
-        if(!Circle::isOverlap(this->attack_set[i]->getCircle(), this->circle))
+        
+        if(this->attack_set[i]->getX()>=window_width || this->attack_set[i]->getY()>=window_height)
         {
             Attack *attack = this->attack_set[i];
 
@@ -68,11 +71,14 @@ Tower::UpdateAttack()
             i--;
             delete attack;
         }
+        
     }
 }
 void 
 Tower::Towershoot()
 {
+    
+    
     // make a new attack set 
     Attack* new_attack=new Attack(this->circle,angle,attack_harm_point,attack_velocity,attack_img);
     attack_set.push_back(new_attack);
