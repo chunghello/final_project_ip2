@@ -30,7 +30,6 @@ Monster::Draw()
    
     int draw_x = circle->x;
     int draw_y = circle->y;
-    printf("%d",draw_x);
 
     al_draw_bitmap(monster_img, draw_x, draw_y, 0);
    

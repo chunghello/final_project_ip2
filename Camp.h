@@ -26,7 +26,7 @@ public:
    
     int getHealth(){return HealthPoint;}
    
-    Monster* BornMonster(/*timer*/);
+    Monster* BornMonster(Clock);
 
     virtual int getWidth() { return 40; }
     virtual int getHeight() { return 40; }

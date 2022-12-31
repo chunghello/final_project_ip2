@@ -1,5 +1,6 @@
 #include "Camp.h"
 
+
 Camp::Camp(int pos_x, int pos_y){
 
     this->circle = new Circle(pos_x,pos_y,0);
@@ -23,21 +24,26 @@ Camp::Draw(){
 
    
 Monster*
-Camp::BornMonster(){
+Camp::BornMonster(Clock clock){
   
-  //if (timer == frequncy){}
-  int random=0; // get random number of monster type 
-  switch(random){
-    default:
-      return NULL;
-    case WOLF : 
-      Wolf *m = NULL;
-      m = new Wolf(circle->x,circle->y);
-      return m;
-      break;
-  
-    
+  if((clock.get_time())/(float)Frequency==(int)((clock.get_time())/(float)Frequency) && clock.get_second()!=0){
+    srand(time(NULL));
+    int x = rand() % (MonsterType.size() - 0 );
+    switch(x){
+      
+      case WOLF : {
+        Wolf *m = NULL;
+        m = new Wolf(circle->x,circle->y);
+        return m;
+        break;
+      }
+      default:
+        return NULL;
+        
+    }
   }
+  else return NULL;
+  
 
 
 }

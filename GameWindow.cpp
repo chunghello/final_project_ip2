@@ -124,6 +124,7 @@ GameWindow::GameWindow()
     display = al_create_display(window_width, window_height);
     event_queue = al_create_event_queue();
     timer = al_create_timer(1.0 / FPS);
+    
 
     if(timer == NULL)
         show_err_msg(-1);
@@ -216,7 +217,7 @@ GameWindow::game_update()
             delete c;
         }
         else{
-            Monster* newMonster =CampSet[i]->BornMonster();
+            Monster* newMonster =CampSet[i]->BornMonster(clock);
 
             if(newMonster!=NULL)monsterSet.push_back(newMonster);
         }    
@@ -285,9 +286,8 @@ GameWindow::process_event()
 
     if(event.type == ALLEGRO_EVENT_TIMER) {
         if(event.timer.source == timer) {
+            clock.add();
             redraw = true;
-
-        
         }
         else {
             

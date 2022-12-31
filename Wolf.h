@@ -13,7 +13,7 @@ public:
         harm_point=70;
         HealthPoint=70;
         speed=5;
-        monster_img = al_load_bitmap("media/Wolf/DOWN_0.png");
+        monster_img = al_load_bitmap("media/Wolf/LEFT_0.png");
     }
     bool Move();
 };

@@ -80,6 +80,7 @@ private:
     ALLEGRO_EVENT event;
     ALLEGRO_TIMER *timer = NULL;
 
+
     ALLEGRO_SAMPLE *sample = NULL;
     ALLEGRO_SAMPLE_INSTANCE *startSound = NULL;
     ALLEGRO_SAMPLE_INSTANCE *clearSound = NULL;
@@ -94,6 +95,7 @@ private:
     std::vector<bool> key_state;
    
     int mouse_x, mouse_y;
+    Clock clock;
     
 
     bool redraw = false;

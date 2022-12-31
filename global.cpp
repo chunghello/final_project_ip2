@@ -18,3 +18,5 @@ char CampClass[][20]={"Hell"};
 int CampRadius[]={80};
 
 
+
+
