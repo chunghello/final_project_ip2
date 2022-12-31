@@ -6,11 +6,10 @@
 class Canon : public Tower
 {
 public:
-    Canon(int mouse_x = 0, int mouse_y = 0) : Tower(mouse_x, mouse_y)
+    Canon(int pos_x,int pos_y) : Tower(pos_x,pos_y)
     {
         type = CANON;
-
-        circle->r = 70;
+        circle->r = TowerRadius[type];
         attack_velocity = 6;
         attack_harm_point = 15;
         rotate_speed=0.06;

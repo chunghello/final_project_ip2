@@ -44,3 +44,11 @@ Monster::Subtract_HP(int harm_point)
     return (HealthPoint <= 0);
 }
 
+bool
+Monster::TriggerAttack(Object* tower)
+{
+    if(Circle::isOverlap(circle,tower->getCircle())){
+        return true;
+    }
+    else return false;
+}

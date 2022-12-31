@@ -24,8 +24,15 @@ extern int TowerRadius[];
 extern char TowerClass[][20];
 extern int TowerWidth[];
 extern int TowerHeight[];
+extern char MonsterClass[][20];
+extern int MonsterRadius[];
+extern int CampClass[][20];
+extern int CampRadius[];
+
+
 
 enum {ARCANE = 0, ARCHER, CANON, POISON, STORM};
 enum {WOLF = 0, WOLFKNIGHT, DEMONNIJIA, CAVEMAN};
+enum {HELL=0};
 
 #endif // GLOBAL_H_INCLUDED

@@ -17,7 +17,7 @@
 class Tower : public Object
 {
 public:
-    Tower(int = 0, int = 0);
+    Tower(int,int);
     virtual ~Tower();
 
     // override virtual function "Object::Draw"
@@ -28,7 +28,6 @@ public:
     void UpdateAttack();
 
     void Towershoot();
-
 
     // process if some of attack in set touches monster
     bool TriggerAttack(Monster*);

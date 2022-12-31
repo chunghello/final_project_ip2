@@ -10,6 +10,8 @@
 #include "Canon.h"
 #include "Attack.h"
 #include "Tower.h"
+#include "Camp.h"
+#include "Hell.h"
 
 
 
@@ -59,7 +61,7 @@ public:
     bool mouse_hover(int, int, int, int);
     
     Tower* create_tower(int,int,int);
-    Monster* create_monster(int,int ,int);
+    Camp* create_camp(int,int,int);
 
 public:
     bool initial = true;
@@ -85,6 +87,8 @@ private:
 
 
     std::vector<Monster*> monsterSet;
+    std::vector<Camp*> CampSet;
+    
     Tower* shooter1;
     std::vector<bool> key_state;
    

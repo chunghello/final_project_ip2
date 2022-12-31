@@ -57,18 +57,26 @@ GameWindow::mouse_hover(int startx, int starty, int width, int height)
 Tower*
 GameWindow::create_tower(int pos_x,int pos_y,int type)
 {
-    Canon *t = NULL;
-    t = new Canon(pos_x,pos_y);
-    return t;
+    switch(type){
+        case CANON:
+         Canon *t = NULL;
+         t = new Canon(pos_x,pos_y);
+         return t;
+    }
+   
 }
 
-Monster*
-GameWindow::create_monster(int pos_x,int pos_y,int type)
-{
-    Wolf *m = NULL;
-    m = new Wolf(pos_x,pos_y);
+Camp*
+GameWindow::create_camp(int pos_x,int pos_y,int type){
+    switch (type)
+    {
+    case HELL:
+        Hell *h=NULL;
+        h= new Hell(pos_x,pos_y);
+        return h;
+        break;
+    }
 
-    return m;
 }
 
 void
@@ -178,21 +186,14 @@ int
 GameWindow::game_update()
 {
     unsigned int i, j;
-
+    shooter1->UpdateAttack();
     for(i=0; i < monsterSet.size(); i++)
     {
-
-
+        shooter1->TriggerAttack(monsterSet[i]);
         bool died = false;
-
-        /*TODO:*/
-        /*1. For each tower, traverse its attack set*/
-        /*2. If the monster collide with any attack, reduce the HP of the monster*/
-        /*3. Remember to set isDestroyed to "true" if monster is killed*/
-        /*Hint: Tower::TriggerAttack*/
-
         died = monsterSet[i]->Move();
-
+        monsterSet[i]->TriggerAttack(shooter1);
+       
         if(died)
         {
             Monster *m = monsterSet[i];
@@ -202,12 +203,25 @@ GameWindow::game_update()
 
         }
     }
+    for(int i=0;i<CampSet.size();i++){
+        
+        if(CampSet[i]->getHealth()<=0){
 
-    /*TODO:*/
-    /*1. Update the attack set of each tower*/
-    /*Hint: Tower::UpdateAttack*/
+            Camp *c=CampSet[i];
 
+            CampSet.erase(CampSet.begin()+i);
 
+            i--;
+            delete c;
+        }
+        else{
+            Monster* newMonster =CampSet[i]->BornMonster(/*timer*/);
+
+           if(newMonster)monsterSet.push_back(newMonster);
+        }    
+    }
+    
+    
     return GAME_CONTINUE;
 }
 
@@ -217,7 +231,9 @@ GameWindow::game_reset()
 
     key_state=std::vector<bool>(ALLEGRO_KEY_MAX,false);
     monsterSet.clear();
-    shooter1=create_tower(Tower_x,Tower_y,1);
+    CampSet.clear();
+    shooter1=create_tower(Tower_x,Tower_y,CANON);
+    CampSet.push_back(create_camp(field_width+lava_width+80,field_width/2,HELL));
     mute = false;
     redraw = false;
      
@@ -350,6 +366,9 @@ GameWindow::draw_running_map()
     for(i=0; i<monsterSet.size(); i++)
     {
         monsterSet[i]->Draw();
+    }
+    for(i=0;i<CampSet.size();i++){
+        CampSet[i]->Draw();
     }
      
     shooter1->Draw();

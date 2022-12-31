@@ -1,11 +1,9 @@
 #include "Tower.h"
 
 // good
-Tower::Tower(int pos_x, int pos_y)
+Tower::Tower(int x,int y)
 {
-    char buffer[50];
-    
-    this->circle = new Circle(pos_x, pos_y, 70);
+    this->circle = new Circle(x,y,0);
     angle=0.0;
 }
 
@@ -83,6 +81,5 @@ Tower::Towershoot()
 void
 Tower::rotate(int direction)
 {
-   
     angle+=(direction*(rotate_speed));
 }
