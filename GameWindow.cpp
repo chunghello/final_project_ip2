@@ -216,9 +216,9 @@ GameWindow::game_update()
             delete c;
         }
         else{
-            Monster* newMonster =CampSet[i]->BornMonster(/*timer*/);
+            Monster* newMonster =CampSet[i]->BornMonster();
 
-           if(newMonster)monsterSet.push_back(newMonster);
+            if(newMonster!=NULL)monsterSet.push_back(newMonster);
         }    
     }
     
@@ -373,6 +373,7 @@ GameWindow::draw_running_map()
     for(i=0;i<CampSet.size();i++){
         CampSet[i]->Draw();
     }
+    
     
     
     shooter1->Draw();

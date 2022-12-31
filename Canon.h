@@ -10,7 +10,7 @@ public:
     {
         type = CANON;
         circle->r = TowerRadius[type];
-        attack_velocity = 0.006;
+        attack_velocity = 1;
         attack_harm_point = 15;
         rotate_speed=0.06;
         tower_img = al_load_bitmap("media/Tower/Canon.png");

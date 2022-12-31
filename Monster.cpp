@@ -27,6 +27,7 @@ Monster::~Monster()
 void
 Monster::Draw()
 {
+   
     int draw_x = circle->x;
     int draw_y = circle->y;
 

@@ -23,14 +23,21 @@ Camp::Draw(){
 
    
 Monster*
-Camp::BornMonster(/*timer*/){
+Camp::BornMonster(){
+  
   //if (timer == frequncy){}
-  int random; // get random number of monster type 
+  int random=5; // get random number of monster type 
   switch(random){
+    default:
+      return NULL;
     case WOLF : 
-     Wolf *m = NULL;
-     m = new Wolf(circle->x,circle->y);
-     return m;
+      Wolf *m = NULL;
+      m = new Wolf(circle->x,circle->y);
+      return m;
+      break;
+  
+    
   }
+
 
 }
