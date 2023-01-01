@@ -9,10 +9,11 @@
 #include "Object.h"
 #include "Circle.h"
 #include "global.h"
+#include "Tower.h"
 
 
 enum {LEFT=0, RIGHT, UP, DOWN};
-
+class Tower;
 class Monster: public Object {
 public:
     Monster(int x,int y,int r);
@@ -25,7 +26,7 @@ public:
     // Update monster position per frame
     // detect bounds and move 
     virtual bool Move()=0;
-    bool TriggerAttack(Object*);
+    void TriggerAttack(Tower *);
 
     // functions that return informations of monster
     int getDir() { return direction; }

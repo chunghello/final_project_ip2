@@ -6,7 +6,7 @@
 class Hell : public Camp
 {
 public:
-    Hell(int pos_x,int pos_y) : Camp(pos_x,pos_y)
+    Hell(int pos_x,int pos_y,float t) : Camp(pos_x,pos_y,t)
     {
         type = HELL;
         circle->r = CampRadius[type];

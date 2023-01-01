@@ -10,11 +10,11 @@
 #include "Object.h"
 #include "Attack.h"
 #include "Circle.h"
-#include "Monster.h"
 #include "global.h"
+#include "Monster.h"
+#include "Host.h"
 
-
-
+class Monster;
 class Tower : public Object
 {
 public:
@@ -28,12 +28,14 @@ public:
     // if any attack goes out of the range of tower, delete it
     void UpdateAttack();
 
-    void Towershoot();
+    void Towershoot(Host*);
 
     // process if some of attack in set touches monster
-    bool TriggerAttack(Monster*);
+    void  TowerAttack(Monster*);
 
     void rotate(int);
+
+    bool Subtract_HP(int harm);
 
 
     virtual int getWidth() { return 40; }
@@ -52,6 +54,8 @@ protected:
     float angle;
     ALLEGRO_BITMAP* tower_img;
     ALLEGRO_BITMAP* attack_img;
+    int HealthPoint;
+    int amo_use;
 };
 
 #endif // TOWER_H_INCLUDED
