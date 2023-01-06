@@ -39,8 +39,8 @@ Tower::Draw()
     }
 }
 
-bool
-Tower::TriggerAttack(Monster *monster)
+void
+Tower::TowerAttack(Monster *monster)
 {
     bool isDestroyed = false;
 
@@ -50,11 +50,19 @@ Tower::TriggerAttack(Monster *monster)
         {
             /*TODO:*/
             /*1. Reduce the monster HP by the harm point*/
+            monster->Subtract_HP(attack_harm_point);
             /*2. Erase and delete the attack from attack set*/
+            Attack *attack = this->attack_set[i];
+
+            this->attack_set.erase(this->attack_set.begin() + i);
+            i--;
+            delete attack;
             /*3. Return true if the monster's HP is reduced to zero*/
+            return ;
+            
         }
     }
-    return false;
+    return;
 }
 
 void
@@ -74,18 +82,18 @@ Tower::UpdateAttack()
         
     }
 }
-void 
-Tower::Towershoot()
-{
-    
-    
-    // make a new attack set 
-    Attack* new_attack=new Attack(this->circle,angle,attack_harm_point,attack_velocity,attack_img);
-    attack_set.push_back(new_attack);
 
-}
+
 void
 Tower::rotate(int direction)
 {
     angle+=(direction*(rotate_speed));
+}
+
+bool
+Tower::Subtract_HP(int harm_point)
+{
+    HealthPoint -= harm_point;
+
+    return (HealthPoint <= 0);
 }

@@ -2,6 +2,7 @@
 #include "global.h"
 #include <iostream>
 
+
 #define WHITE al_map_rgb(255, 255, 255)
 #define BLACK al_map_rgb(0, 0, 0)
 #define ORANGE_LIGHT al_map_rgb(255, 196, 87)
@@ -67,15 +68,45 @@ GameWindow::create_tower(int pos_x,int pos_y,int type)
 }
 
 Camp*
-GameWindow::create_camp(int pos_x,int pos_y,int type){
+GameWindow::create_camp(int pos_x,int pos_y,int type,float t){
     switch (type)
     {
     case HELL:
         Hell *h=NULL;
-        h= new Hell(pos_x,pos_y);
+        h= new Hell(pos_x,pos_y,t);
         return h;
         break;
     }
+
+}
+void
+GameWindow::new_camp(Host * host,std::vector<Camp*> & Campset){
+     std::vector<int> choose_y{10,90,170,250,330,410,490};
+     std::vector<int> choose_x{560,640,720};
+     std::set<std::pair<int,int>>s;
+     for(auto i : choose_x){
+        for(auto j: choose_y){
+            s.insert({i,j});
+        }
+     }
+     for(auto i : CampSet){
+        s.erase({i->getCircle()->x,i->getCircle()->y});
+     }
+    if(!s.empty()){
+        if(host->use_camp(1)){
+
+            srand(time(NULL));
+            std::vector<std::pair<int,int>> v(s.begin(),s.end());
+            std::pair<int,int> tmp;
+            if(v.size()==1) tmp=v[0];
+            else tmp=v[rand()%(v.size()-1 - 0 )];
+            int pos_x=tmp.first;
+            int pos_y=tmp.second;
+            int type = rand() % (HELL+1 - 0 );
+            CampSet.push_back(create_camp(pos_x,pos_y,type,host->get_clock().get_time()));
+        }
+    }
+    else return ;
 
 }
 
@@ -191,10 +222,9 @@ GameWindow::game_update()
     shooter1->UpdateAttack();
     for(i=0; i < monsterSet.size(); i++)
     {
-        shooter1->TriggerAttack(monsterSet[i]);
+        shooter1->TowerAttack(monsterSet[i]);
         bool died = false;
         died = monsterSet[i]->Move();
-        monsterSet[i]->TriggerAttack(shooter1);
        
         if(died)
         {
@@ -204,6 +234,7 @@ GameWindow::game_update()
             delete m;
 
         }
+        else  monsterSet[i]->TriggerAttack(shooter1);
     }
     for(int i=0;i<CampSet.size();i++){
         
@@ -217,11 +248,14 @@ GameWindow::game_update()
             delete c;
         }
         else{
-            Monster* newMonster =CampSet[i]->BornMonster(clock);
+            Monster* newMonster =CampSet[i]->BornMonster(host->get_clock());
 
             if(newMonster!=NULL)monsterSet.push_back(newMonster);
         }    
     }
+
+    new_camp(host,CampSet);
+   // printf("%d\n",host->get_evilpower());
     
     
     return GAME_CONTINUE;
@@ -235,8 +269,8 @@ GameWindow::game_reset()
     monsterSet.clear();
     CampSet.clear();
     shooter1=create_tower(Tower_x,Tower_y,CANON);
-    CampSet.push_back(create_camp(max_camp_x,field_width/2,HELL));
-    
+    host=new Host(1);
+    CampSet.push_back(create_camp(720,250,HELL,host->get_clock().get_time()));
     mute = false;
     redraw = false;
      
@@ -287,7 +321,7 @@ GameWindow::process_event()
 
     if(event.type == ALLEGRO_EVENT_TIMER) {
         if(event.timer.source == timer) {
-            clock.add();
+            host->renew();
             redraw = true;
         }
         else {
@@ -319,7 +353,7 @@ GameWindow::process_event()
                 break;
  
             case ALLEGRO_KEY_SPACE: // shooter1 shoot
-                shooter1->Towershoot();
+                shooter1->Towershoot(host);
                 break;
 
 

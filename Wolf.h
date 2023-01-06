@@ -15,7 +15,7 @@ public:
         speed=1;
         monster_img = al_load_bitmap("media/Wolf/LEFT_0.png");
     }
-    bool Move();
+    bool Move() override;
 };
 
 

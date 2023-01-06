@@ -1,9 +1,10 @@
 #include "Camp.h"
 
 
-Camp::Camp(int pos_x, int pos_y){
+Camp::Camp(int pos_x, int pos_y,float t){
 
     this->circle = new Circle(pos_x,pos_y,0);
+    create_time=t;
 }
 
 Camp::~Camp(){
@@ -26,7 +27,7 @@ Camp::Draw(){
 Monster*
 Camp::BornMonster(Clock clock){
   
-  if((clock.get_time())/(float)Frequency==(int)((clock.get_time())/(float)Frequency) && clock.get_second()!=0){
+  if((clock.get_time()-create_time)/(float)Frequency==(int)((clock.get_time()-create_time)/(float)Frequency) && clock.get_time()-create_time!=0){
     srand(time(NULL));
     int x = rand() % (MonsterType.size() - 0 );
     switch(x){

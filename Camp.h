@@ -18,7 +18,7 @@
 class Camp : public Object
 {
 public:
-    Camp(int pos_x, int pos_y);
+    Camp(int pos_x, int pos_y,float t);
     virtual ~Camp();
 
     
@@ -38,6 +38,7 @@ protected:
     int type;
     int HealthPoint;
     int Frequency;
+    float create_time;
     std::vector<int> MonsterType;
    
     ALLEGRO_BITMAP* camp_img;

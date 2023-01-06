@@ -6,6 +6,9 @@
 #include <vector>
 #include <list>
 #include <time.h>
+#include<algorithm>
+#include<initializer_list>
+#include<set>
 #include "Wolf.h"
 #include "Canon.h"
 #include "Attack.h"
@@ -13,6 +16,7 @@
 #include "Monster.h"
 #include "Camp.h"
 #include "Hell.h"
+#include "Host.h"
 
 
 
@@ -62,7 +66,8 @@ public:
     bool mouse_hover(int, int, int, int);
     
     Tower* create_tower(int,int,int);
-    Camp* create_camp(int,int,int);
+    Camp* create_camp(int,int,int,float);
+    void new_camp(Host* , std::vector<Camp*> &);
 
 public:
     bool initial = true;
@@ -95,7 +100,7 @@ private:
     std::vector<bool> key_state;
    
     int mouse_x, mouse_y;
-    Clock clock;
+    Host* host=NULL;
     
 
     bool redraw = false;
