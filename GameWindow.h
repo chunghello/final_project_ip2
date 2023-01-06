@@ -17,6 +17,8 @@
 #include "Camp.h"
 #include "Hell.h"
 #include "Host.h"
+#include "shooter.h"
+#include "shooter1.h"
 
 
 
@@ -64,7 +66,7 @@ public:
     int process_event();
     // detect if mouse hovers over a rectangle
     bool mouse_hover(int, int, int, int);
-    
+
     Tower* create_tower(int,int,int);
     Camp* create_camp(int,int,int,float);
     void new_camp(Host* , std::vector<Camp*> &);
@@ -95,13 +97,14 @@ private:
 
     std::vector<Monster*> monsterSet;
     std::vector<Camp*> CampSet;
-    
-    Tower* shooter1;
+
+    Tower* towerpointer;
+    Shooter1*shooterpointer;
     std::vector<bool> key_state;
-   
+
     int mouse_x, mouse_y;
     Host* host=NULL;
-    
+
 
     bool redraw = false;
     bool mute = false;

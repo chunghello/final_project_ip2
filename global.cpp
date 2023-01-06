@@ -16,7 +16,7 @@ int Tower_x=50;
 int Tower_y=300;
 char CampClass[][20]={"Hell"};
 int CampRadius[]={80};
-
+int ShooterRadius=20;
 
 
 

@@ -20,12 +20,12 @@ public:
     }
     void Towershoot(Host*) override;
 
-    
+
 
     int getWidth() override { return TowerWidth[CANON]; }
     int getHeight() override { return TowerHeight[CANON]; }
 
-    
+
 };
 
 #endif // CANON_H_INCLUDED

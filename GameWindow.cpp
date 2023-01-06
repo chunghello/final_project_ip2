@@ -26,7 +26,7 @@ void
 GameWindow::game_init()
 {
     char buffer[50];
-   
+
     icon = al_load_bitmap("media/icon.png");
     background = al_load_bitmap("media/StartBackground.jpg");
     al_set_display_icon(display, icon);
@@ -41,10 +41,10 @@ GameWindow::game_init()
     backgroundSound = al_create_sample_instance(sample);
     al_set_sample_instance_playmode(backgroundSound, ALLEGRO_PLAYMODE_ONCE);
     al_attach_sample_instance_to_mixer(backgroundSound, al_get_default_mixer());
-   
+
 }
 
-bool // detect mouse on bound 
+bool // detect mouse on bound
 GameWindow::mouse_hover(int startx, int starty, int width, int height)
 {
     if(mouse_x >= startx && mouse_x <= startx + width)
@@ -64,7 +64,7 @@ GameWindow::create_tower(int pos_x,int pos_y,int type)
          t = new Canon(pos_x,pos_y);
          return t;
     }
-   
+
 }
 
 Camp*
@@ -116,12 +116,12 @@ GameWindow::game_play()
     int msg;
 
     srand(time(NULL));
-    
+
     msg = -1;
     game_reset();
-    
+
     game_begin();
-    
+
     while(msg != GAME_EXIT)
     {
         msg = game_run();
@@ -148,14 +148,11 @@ GameWindow::GameWindow()
         show_err_msg(-1);
 
     printf("Game Initializing...\n");
-   
-  
-  
 
     display = al_create_display(window_width, window_height);
     event_queue = al_create_event_queue();
     timer = al_create_timer(1.0 / FPS);
-    
+
 
     if(timer == NULL)
         show_err_msg(-1);
@@ -173,34 +170,34 @@ GameWindow::GameWindow()
     al_install_mouse();    // install mouse event
     al_install_audio();    // install audio event
 
-    
+
     font = al_load_ttf_font("media/Caviar_Dreams_Bold.ttf",12,0); // load small font
     Medium_font = al_load_ttf_font("media/Caviar_Dreams_Bold.ttf",24,0); //load medium font
     Large_font = al_load_ttf_font("media/Caviar_Dreams_Bold.ttf",36,0); //load large font
-   
+
     al_register_event_source(event_queue, al_get_display_event_source(display));
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_register_event_source(event_queue, al_get_mouse_event_source());
 
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
-    
+
     game_init();
-    
+
 }
 
 void
 GameWindow::game_begin()
 {
-    
+
     draw_running_map();
-    
+
     al_play_sample_instance(startSound);
     while(al_get_sample_instance_playing(startSound));
     al_play_sample_instance(backgroundSound);
 
     al_start_timer(timer);
-     
-  
+
+
 }
 
 int
@@ -219,13 +216,13 @@ int
 GameWindow::game_update()
 {
     unsigned int i, j;
-    shooter1->UpdateAttack();
+    towerpointer->UpdateAttack();
     for(i=0; i < monsterSet.size(); i++)
     {
-        shooter1->TowerAttack(monsterSet[i]);
+        towerpointer->TowerAttack(monsterSet[i]);
         bool died = false;
         died = monsterSet[i]->Move();
-       
+
         if(died)
         {
             Monster *m = monsterSet[i];
@@ -234,10 +231,10 @@ GameWindow::game_update()
             delete m;
 
         }
-        else  monsterSet[i]->TriggerAttack(shooter1);
+        else  monsterSet[i]->TriggerAttack(towerpointer);
     }
     for(int i=0;i<CampSet.size();i++){
-        
+
         if(CampSet[i]->getHealth()<=0){
 
             Camp *c=CampSet[i];
@@ -251,13 +248,13 @@ GameWindow::game_update()
             Monster* newMonster =CampSet[i]->BornMonster(host->get_clock());
 
             if(newMonster!=NULL)monsterSet.push_back(newMonster);
-        }    
+        }
     }
 
     new_camp(host,CampSet);
    // printf("%d\n",host->get_evilpower());
-    
-    
+
+
     return GAME_CONTINUE;
 }
 
@@ -268,17 +265,18 @@ GameWindow::game_reset()
     key_state=std::vector<bool>(ALLEGRO_KEY_MAX,false);
     monsterSet.clear();
     CampSet.clear();
-    shooter1=create_tower(Tower_x,Tower_y,CANON);
+    towerpointer=create_tower(Tower_x,Tower_y,CANON);
+    shooterpointer= new Shooter1(200,200,ShooterRadius);
     host=new Host(1);
     CampSet.push_back(create_camp(720,250,HELL,host->get_clock().get_time()));
     mute = false;
     redraw = false;
-     
+
 
     // stop sample instance
     al_stop_sample_instance(backgroundSound);
     al_stop_sample_instance(startSound);
-    
+
     // stop timer
     al_stop_timer(timer);
 }
@@ -325,7 +323,7 @@ GameWindow::process_event()
             redraw = true;
         }
         else {
-            
+
         }
     }
     else if(event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
@@ -339,7 +337,7 @@ GameWindow::process_event()
                 /*TODO: handle pause event here*/
                 break;
             case ALLEGRO_KEY_M:
-               
+
                 mute = !mute;
                 if(mute)
                     al_stop_sample_instance(backgroundSound);
@@ -347,21 +345,24 @@ GameWindow::process_event()
                     al_play_sample_instance(backgroundSound);
                 break;
             case ALLEGRO_KEY_W: // shooter1 rotate up
+                //shooter1->rotate(-1);
                 break;
 
             case ALLEGRO_KEY_S: // shooter1 rotate down
+                //shooter1->rotate(1);
                 break;
- 
+
             case ALLEGRO_KEY_SPACE: // shooter1 shoot
-                shooter1->Towershoot(host);
+                towerpointer->Towershoot(host);
                 break;
 
 
         }
     }
     else if(event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+        shooterpointer->Shootershoot(host);
         //shooter2 shoots
-   
+
     }
     else if(event.type==ALLEGRO_EVENT_KEY_UP){
         key_state[event.keyboard.keycode]=false;
@@ -370,13 +371,29 @@ GameWindow::process_event()
         mouse_x = event.mouse.x;
         mouse_y = event.mouse.y;
     }
-    
+
     if(key_state[ALLEGRO_KEY_W]){
-        shooter1->rotate(-1);
+        towerpointer->rotate(-1);
 
     }
     if(key_state[ALLEGRO_KEY_S]){
-        shooter1->rotate(1);
+        towerpointer->rotate(1);
+    }
+    if(key_state[ALLEGRO_KEY_UP]){
+        shooterpointer->Move(4);
+        std::cout<<"up";
+    }
+    if(key_state[ALLEGRO_KEY_DOWN]){
+        shooterpointer->Move(3);
+        std::cout<<"down";
+    }
+    if(key_state[ALLEGRO_KEY_LEFT]){
+        shooterpointer->Move(2);
+        std::cout<<"left";
+    }
+    if(key_state[ALLEGRO_KEY_RIGHT]){
+        shooterpointer->Move(1);
+        std::cout<<"right";
     }
 
     if(redraw) {
@@ -395,7 +412,7 @@ void
 GameWindow::draw_running_map()
 {
     unsigned int i, j;
-    
+
     al_clear_to_color(al_map_rgb(100, 100, 100));
     al_draw_bitmap(background, 0, 0, 0);
     al_draw_filled_rectangle(field_width, 0,field_width+lava_width, lava_height, ORANGE_DARK);
@@ -404,19 +421,12 @@ GameWindow::draw_running_map()
     {
         monsterSet[i]->Draw();
     }
-    
+
     for(i=0;i<CampSet.size();i++){
         CampSet[i]->Draw();
     }
-    
-    
-    
-    shooter1->Draw();
- 
-    
-    
 
-
-
+    towerpointer->Draw();
+    shooterpointer->Draw();
     al_flip_display();
 }
